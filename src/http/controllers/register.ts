@@ -17,12 +17,13 @@ export async function register(
     const { name, email, password } = registerBodySchema.parse(request.body)
 
     try {
-        registerUseCase({
+        await registerUseCase({
             name,
             email,
             password
         })
     } catch (err) {
+        console.log('entrei no catch')
         response.status(409).send()
     }
 
