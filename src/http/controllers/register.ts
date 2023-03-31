@@ -1,4 +1,3 @@
-
 import { FastifyReply, FastifyRequest } from 'fastify'
 
 import { registerBodySchema } from '@/schemas'
@@ -12,8 +11,6 @@ export async function register(
     request: FastifyRequest,
     response: FastifyReply
 ) {
- 
-
     const { name, email, password } = registerBodySchema.parse(request.body)
 
     try {
