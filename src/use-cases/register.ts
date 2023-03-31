@@ -13,13 +13,8 @@ export class RegisterUseCase {
 
     async execute({ email, name, password }: IRegisterUseCaseParams) {
         const password_hash = await hash(password, 6)
-        const userWithSameEmail = await prisma.user.findUnique({
-            where: {
-                email,
-            },
-        })
 
-        if (userWithSameEmail) {
+        if (await this.usersRepository.findByEmail(email)) {
             throw new Error('E-mail alread exists')
         }
 
