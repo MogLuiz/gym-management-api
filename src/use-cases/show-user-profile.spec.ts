@@ -2,6 +2,7 @@ import { hash } from 'bcryptjs'
 import { expect, describe, it, beforeEach } from 'vitest'
 import { InMemoryUsersRepository } from '@/repositories/in-memory'
 import { ShowUserProfileUseCase } from './show-user-profile'
+import { ResourseNotFoundError } from './errors'
 
 const fakeUser = {
     name: 'John Doe',
@@ -32,5 +33,13 @@ describe('Show User Profile Use Case', () => {
         expect(user).toEqual(createdUser)
         expect(user.id).toEqual(expect.any(String))
         expect(user.name).toEqual(expect.any(String))
+    })
+
+    it('should not be able to show user with wrong id', async () => {
+        await expect(() =>
+            sut.execute({
+                userId: 'non-existing-id'
+            })
+        ).rejects.toBeInstanceOf(ResourseNotFoundError)
     })
 })
