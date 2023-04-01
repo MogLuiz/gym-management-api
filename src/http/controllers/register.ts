@@ -7,7 +7,7 @@ import { UserAlreadyExistsError } from '@/use-cases/errors'
 
 import { PrismaUsersRepository } from '@/repositories/prisma'
 
-export async function register(
+export async function registerController(
     request: FastifyRequest,
     response: FastifyReply
 ) {
