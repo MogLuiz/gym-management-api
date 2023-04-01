@@ -1,5 +1,5 @@
 import { hash } from 'bcryptjs'
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, beforeEach } from 'vitest'
 import { AuthenticateUseCase } from './authenticate'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { InvalidCredentialsError } from './errors'
@@ -11,10 +11,15 @@ const fakeUser = {
 }
 
 describe('Authenticate Use Case', () => {
-    it('should be able to authenticate', async () => {
-        const usersRepository = new InMemoryUsersRepository()
-        const sut = new AuthenticateUseCase(usersRepository)
+    let usersRepository: InMemoryUsersRepository
+    let sut: AuthenticateUseCase
 
+    beforeEach(() => {
+        usersRepository = new InMemoryUsersRepository()
+        sut = new AuthenticateUseCase(usersRepository)
+    })
+
+    it('should be able to authenticate', async () => {
         usersRepository.create({
             name: fakeUser.name,
             email: fakeUser.email,
@@ -31,9 +36,6 @@ describe('Authenticate Use Case', () => {
     })
 
     it('should not be able to authenticate with wrong email', async () => {
-        const usersRepository = new InMemoryUsersRepository()
-        const sut = new AuthenticateUseCase(usersRepository)
-
         await expect(() =>
             sut.execute({
                 email: fakeUser.email,
@@ -43,9 +45,6 @@ describe('Authenticate Use Case', () => {
     })
 
     it('should not be able to authenticate with wrong password', async () => {
-        const usersRepository = new InMemoryUsersRepository()
-        const sut = new AuthenticateUseCase(usersRepository)
-
         usersRepository.create({
             name: fakeUser.name,
             email: fakeUser.email,
