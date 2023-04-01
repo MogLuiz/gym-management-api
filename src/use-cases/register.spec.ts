@@ -13,9 +13,9 @@ const fakeUser = {
 describe('Register Use Case', () => {
     it('should be able to register', async () => {
         const usersRepository = new InMemoryUsersRepository()
-        const registerUseCase = new RegisterUseCase(usersRepository)
+        const sut = new RegisterUseCase(usersRepository)
     
-        const { user } = await registerUseCase.execute(fakeUser)
+        const { user } = await sut.execute(fakeUser)
 
         expect(user.name).toEqual(fakeUser.name)
         expect(user.id).toEqual(expect.any(String))
@@ -24,9 +24,9 @@ describe('Register Use Case', () => {
     it('should hash user password upon registration', async () => {
         const password = '123456'
         const usersRepository = new InMemoryUsersRepository()
-        const registerUseCase = new RegisterUseCase(usersRepository)
+        const sut = new RegisterUseCase(usersRepository)
 
-        const { user } = await registerUseCase.execute({
+        const { user } = await sut.execute({
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: password,
@@ -42,11 +42,11 @@ describe('Register Use Case', () => {
 
     it('should not be able to register with same email twice', async () => {
         const usersRepository = new InMemoryUsersRepository()
-        const registerUseCase = new RegisterUseCase(usersRepository)
+        const sut = new RegisterUseCase(usersRepository)
 
-        await registerUseCase.execute(fakeUser)
+        await sut.execute(fakeUser)
 
-        await expect(() => registerUseCase.execute(fakeUser)).rejects.toBeInstanceOf(
+        await expect(() => sut.execute(fakeUser)).rejects.toBeInstanceOf(
             UserAlreadyExistsError
         )
     })
