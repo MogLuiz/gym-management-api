@@ -11,6 +11,16 @@ const fakeUser = {
 }
 
 describe('Register Use Case', () => {
+    it('should be able to register', async () => {
+        const usersRepository = new InMemoryUsersRepository()
+        const registerUseCase = new RegisterUseCase(usersRepository)
+    
+        const { user } = await registerUseCase.execute(fakeUser)
+
+        expect(user.name).toEqual(fakeUser.name)
+        expect(user.id).toEqual(expect.any(String))
+    })
+
     it('should hash user password upon registration', async () => {
         const password = '123456'
         const usersRepository = new InMemoryUsersRepository()
