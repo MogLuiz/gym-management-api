@@ -9,6 +9,11 @@ const fakeCheckIn = {
     userId: 'user-01',
 }
 
+const fakeCheckIn02 = {
+    gymId: 'gym-02',
+    userId: 'user-01',
+}
+
 describe('Check-in Use Case', () => {
     let checkInsRepository: InMemoryCheckInsRepository
     let sut: CheckInUseCase
@@ -38,5 +43,18 @@ describe('Check-in Use Case', () => {
         await sut.execute(fakeCheckIn)
 
         await expect(() => sut.execute(fakeCheckIn)).rejects.toBeInstanceOf(Error)  
+    })
+
+    it('should be able to check in twice  but in different days', async () => {
+        vi.setSystemTime(new Date(2022, 0, 20, 8, 0, 0))
+
+        await sut.execute(fakeCheckIn)
+
+        vi.setSystemTime(new Date(2022, 0, 21, 8, 0, 0))
+        const { checkIn } = await sut.execute(fakeCheckIn02)
+
+        expect(checkIn.id).toEqual(expect.any(String))
+        expect(checkIn.gym_id).toEqual(fakeCheckIn02.gymId)
+        expect(checkIn.user_id).toEqual(fakeCheckIn02.userId)
     })
 })
