@@ -1,17 +1,17 @@
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
 import { expect, describe, it, beforeEach } from 'vitest'
-import { ListUserCheckInsHistoryUseCase } from './list-user-check-ins-history'
+import { ListUserCheckInsHistoryUseCase } from './list-check-ins-history-by-user'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let sut: ListUserCheckInsHistoryUseCase
 
-describe('Fetch User Check-in History Use Case', () => {
+describe('List Check-ins History Use Case', () => {
     beforeEach(async () => {
         checkInsRepository = new InMemoryCheckInsRepository()
         sut = new ListUserCheckInsHistoryUseCase(checkInsRepository)
     })
 
-    it('should be able to fetch check-in history', async () => {
+    it('should be able to list check-ins history', async () => {
         await checkInsRepository.create({
             gym_id: 'gym-01',
             user_id: 'user-01',
