@@ -1,4 +1,5 @@
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
+import { fakeGym, fakeCheckIn, fakeCheckIn02 } from './mock'
 
 import { CheckInUseCase } from '@/use-cases/check-in/check-in'
 import {
@@ -7,40 +8,19 @@ import {
 } from '@/repositories/in-memory'
 import { Decimal } from '@prisma/client/runtime'
 
-const fakeCheckIn = {
-    gymId: 'gym-01',
-    userId: 'user-01',
-    userLatitude: -19.9405733,
-    userLongitude: -44.0058067,
-}
-
-const fakeCheckIn02 = {
-    gymId: 'gym-01',
-    userId: 'user-01',
-    userLatitude: -19.9405733,
-    userLongitude: -44.0058067,
-}
-
 describe('Check-in Use Case', () => {
     let sut: CheckInUseCase
     let gymsRepository: InMemoryGymsRepository
     let checkInsRepository: InMemoryCheckInsRepository
 
-    beforeEach(() => {
+    beforeEach(async () => {
         gymsRepository = new InMemoryGymsRepository()
         checkInsRepository = new InMemoryCheckInsRepository()
         sut = new CheckInUseCase(gymsRepository, checkInsRepository)
 
-        gymsRepository.items.push({          
-            id: 'gym-01',
-            title: 'JavaScript Gym',
-            description: '',
-            phone: '',
-            latitude: new Decimal(-19.9405733),
-            longitude: new Decimal(-44.0058067),
-        })
+        await gymsRepository.create(fakeGym)
 
-        vi.useFakeTimers()       
+        vi.useFakeTimers()
     })
 
     afterEach(() => {
@@ -77,7 +57,7 @@ describe('Check-in Use Case', () => {
     })
 
     it('should not be able to check in on distant gym', async () => {
-        gymsRepository.items.push({
+        await gymsRepository.create({
             id: 'gym-02',
             title: 'JavaScript Gym',
             description: '',
@@ -85,14 +65,14 @@ describe('Check-in Use Case', () => {
             latitude: new Decimal(-27.0747279),
             longitude: new Decimal(-49.4889672),
         })
-    
+
         await expect(() =>
             sut.execute({
                 gymId: 'gym-02',
                 userId: 'user-01',
                 userLatitude: -27.2092052,
                 userLongitude: -49.6401091,
-            }),
+            })
         ).rejects.toBeInstanceOf(Error)
     })
 })
