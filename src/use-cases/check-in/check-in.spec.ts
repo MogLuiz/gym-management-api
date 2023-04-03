@@ -1,4 +1,5 @@
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
+import { Decimal } from '@prisma/client/runtime'
 import { fakeGym, fakeCheckIn, fakeCheckIn02 } from './mock'
 
 import { CheckInUseCase } from '@/use-cases/check-in/check-in'
@@ -6,7 +7,7 @@ import {
     InMemoryCheckInsRepository,
     InMemoryGymsRepository,
 } from '@/repositories/in-memory'
-import { Decimal } from '@prisma/client/runtime'
+import { MaxDistanceError, MaxNumberOfCheckInsError } from '../errors'
 
 describe('Check-in Use Case', () => {
     let sut: CheckInUseCase
@@ -40,7 +41,7 @@ describe('Check-in Use Case', () => {
 
         await sut.execute(fakeCheckIn)
 
-        await expect(() => sut.execute(fakeCheckIn)).rejects.toBeInstanceOf(Error)
+        await expect(() => sut.execute(fakeCheckIn)).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
     })
 
     it('should be able to check in twice  but in different days', async () => {
@@ -73,6 +74,6 @@ describe('Check-in Use Case', () => {
                 userLatitude: -27.2092052,
                 userLongitude: -49.6401091,
             })
-        ).rejects.toBeInstanceOf(Error)
+        ).rejects.toBeInstanceOf(MaxDistanceError)
     })
 })
