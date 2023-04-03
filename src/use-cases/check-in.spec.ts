@@ -1,28 +1,46 @@
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 
 import { CheckInUseCase } from '@/use-cases/check-in'
-import { InMemoryCheckInsRepository } from '@/repositories/in-memory'
-
+import {
+    InMemoryCheckInsRepository,
+    InMemoryGymsRepository,
+} from '@/repositories/in-memory'
+import { Decimal } from '@prisma/client/runtime'
 
 const fakeCheckIn = {
     gymId: 'gym-01',
     userId: 'user-01',
+    userLatitude: -19.9405733,
+    userLongitude: -44.0058067,
 }
 
 const fakeCheckIn02 = {
-    gymId: 'gym-02',
+    gymId: 'gym-01',
     userId: 'user-01',
+    userLatitude: -19.9405733,
+    userLongitude: -44.0058067,
 }
 
 describe('Check-in Use Case', () => {
-    let checkInsRepository: InMemoryCheckInsRepository
     let sut: CheckInUseCase
+    let gymsRepository: InMemoryGymsRepository
+    let checkInsRepository: InMemoryCheckInsRepository
 
     beforeEach(() => {
+        gymsRepository = new InMemoryGymsRepository()
         checkInsRepository = new InMemoryCheckInsRepository()
-        sut = new CheckInUseCase(checkInsRepository)
+        sut = new CheckInUseCase(gymsRepository, checkInsRepository)
 
-        vi.useFakeTimers()
+        gymsRepository.items.push({          
+            id: 'gym-01',
+            title: 'JavaScript Gym',
+            description: '',
+            phone: '',
+            latitude: new Decimal(0),
+            longitude: new Decimal(0),
+        })
+
+        vi.useFakeTimers()       
     })
 
     afterEach(() => {
@@ -42,7 +60,7 @@ describe('Check-in Use Case', () => {
 
         await sut.execute(fakeCheckIn)
 
-        await expect(() => sut.execute(fakeCheckIn)).rejects.toBeInstanceOf(Error)  
+        await expect(() => sut.execute(fakeCheckIn)).rejects.toBeInstanceOf(Error)
     })
 
     it('should be able to check in twice  but in different days', async () => {
