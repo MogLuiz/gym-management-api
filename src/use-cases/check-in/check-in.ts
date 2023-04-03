@@ -1,6 +1,6 @@
 import { CheckIn } from '@prisma/client'
 import { ICheckInsRepository, IGymsRepository } from '@/repositories'
-import { ResourseNotFoundError } from './errors'
+import { ResourseNotFoundError } from '../errors'
 import { getDistanceBetweenCoordinates } from '@/utils/get-distance-between-coordinates'
 
 interface ICheckInUseCaseRequest {
