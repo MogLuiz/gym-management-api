@@ -1,2 +1,2 @@
-export * from './register'
-export * from './authenticate'
+export * from './authenticate/factory'
+export * from './register/factory'

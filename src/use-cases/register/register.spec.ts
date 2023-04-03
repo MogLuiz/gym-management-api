@@ -1,8 +1,9 @@
 import { compare } from 'bcryptjs'
 import { expect, describe, it, beforeEach } from 'vitest'
 import { RegisterUseCase } from './register'
-import { InMemoryUsersRepository } from '@/repositories/in-memory'
-import { UserAlreadyExistsError } from './errors'
+
+import { UserAlreadyExistsError } from '../errors'
+import { makeRegisterUseCaseWithInMemoryRepository } from './factory'
 
 const fakeUser = {
     name: 'John Doe',
@@ -11,12 +12,10 @@ const fakeUser = {
 }
 
 describe('Register Use Case', () => {
-    let usersRepository: InMemoryUsersRepository
     let sut: RegisterUseCase
 
     beforeEach(() => {
-        usersRepository = new InMemoryUsersRepository()
-        sut = new RegisterUseCase(usersRepository)
+        sut = makeRegisterUseCaseWithInMemoryRepository()
     })
 
     it('should be able to register', async () => {
