@@ -2,7 +2,7 @@ import { hash } from 'bcryptjs'
 import { expect, describe, it, beforeEach } from 'vitest'
 import { InMemoryUsersRepository } from '@/repositories/in-memory'
 import { ShowUserProfileUseCase } from './show-user-profile'
-import { ResourseNotFoundError } from '../errors'
+import { ResourceNotFoundError } from '../errors'
 
 const fakeUser = {
     name: 'John Doe',
@@ -40,6 +40,6 @@ describe('Show User Profile Use Case', () => {
             sut.execute({
                 userId: 'non-existing-id'
             })
-        ).rejects.toBeInstanceOf(ResourseNotFoundError)
+        ).rejects.toBeInstanceOf(ResourceNotFoundError)
     })
 })
