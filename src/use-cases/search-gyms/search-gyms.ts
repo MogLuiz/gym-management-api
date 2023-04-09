@@ -2,12 +2,12 @@ import { IGymsRepository } from '@/repositories/gyms-repository'
 import { Gym } from '@prisma/client'
 
 interface SearchGymsUseCaseRequest {
-  query: string
-  page: number
+  query: string;
+  page: number;
 }
 
 interface SearchGymsUseCaseResponse {
-  gyms: Gym[]
+  gyms: Gym[];
 }
 
 export class SearchGymsUseCase {
