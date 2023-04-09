@@ -43,7 +43,7 @@ export class InMemoryGymsRepository implements IGymsRepository {
                 },
             )
     
-            return distance < 10
+            return distance < 10000
         })
     }
 
