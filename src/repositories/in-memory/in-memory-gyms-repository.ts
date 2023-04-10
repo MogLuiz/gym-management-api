@@ -42,6 +42,7 @@ export class InMemoryGymsRepository implements IGymsRepository {
                     longitude: item.longitude.toNumber(),
                 },
             )
+            
     
             return distance < 10000
         })
