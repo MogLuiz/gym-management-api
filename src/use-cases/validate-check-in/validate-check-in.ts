@@ -1,5 +1,5 @@
 import { ICheckInsRepository } from '@/repositories/check-ins-repository'
-import { ResourceNotFoundError } from '@/use-cases/errors/resourse-not-found-error'
+import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import { CheckIn } from '@prisma/client'
 
 interface IValidateCheckInUseCaseRequest {
