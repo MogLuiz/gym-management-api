@@ -32,5 +32,11 @@ describe('Validate Check-in Use Case', () => {
         expect(checkInsRepository.items[0].validated_at).toEqual(expect.any(Date))
     })
 
-  
+    it('should not be able to validate an inexistent check-in', async () => {
+        await expect(() =>
+            sut.execute({
+                checkInId: 'inexistent-check-in-id',
+            }),
+        ).rejects.toBeInstanceOf(ResourceNotFoundError)
+    })
 })
