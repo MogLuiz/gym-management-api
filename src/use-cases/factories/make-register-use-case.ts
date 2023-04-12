@@ -1,4 +1,4 @@
-import { RegisterUseCase } from './register'
+import { RegisterUseCase } from '@/use-cases'
 import { PrismaUsersRepository } from '@/repositories/prisma'
 import { InMemoryUsersRepository } from '@/repositories/in-memory'
 
@@ -8,6 +8,6 @@ export function makeRegisterUseCase(): RegisterUseCase {
 }
 
 export function makeRegisterUseCaseWithInMemoryRepository(): RegisterUseCase {
-    const usersRepository = new InMemoryUsersRepository()
-    return new RegisterUseCase(usersRepository)
+    const inMemoryUsersRepository = new InMemoryUsersRepository()
+    return new RegisterUseCase(inMemoryUsersRepository)
 }

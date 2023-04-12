@@ -1,7 +1,7 @@
 import { hash } from 'bcryptjs'
 import { expect, describe, it, beforeEach } from 'vitest'
 import { InMemoryUsersRepository } from '@/repositories/in-memory'
-import { ShowUserProfileUseCase } from './show-user-profile'
+import { ShowUserProfileUseCase } from '.'
 import { ResourceNotFoundError } from '../errors'
 
 const fakeUser = {

@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 
 import { authenticateBodySchema } from '@/schemas'
 
-import { makeAuthenticateUseCase } from '@/use-cases'
+import { makeAuthenticateUseCase } from '@/use-cases/factories'
 import { InvalidCredentialsError } from '@/use-cases/errors'
 
 

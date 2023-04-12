@@ -1,4 +1,4 @@
-import { AuthenticateUseCase } from './authenticate'
+import { AuthenticateUseCase } from '@/use-cases'
 import { PrismaUsersRepository } from '@/repositories/prisma'
 import { InMemoryUsersRepository } from '@/repositories/in-memory'
 

@@ -2,7 +2,7 @@ import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 import { Decimal } from '@prisma/client/runtime'
 import { fakeGym, fakeCheckIn, fakeCheckIn02 } from './mock'
 
-import { CheckInUseCase } from '@/use-cases/check-in/check-in'
+import { CheckInUseCase } from '@/use-cases/check-in'
 import {
     InMemoryCheckInsRepository,
     InMemoryGymsRepository,

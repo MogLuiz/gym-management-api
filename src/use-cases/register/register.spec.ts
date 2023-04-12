@@ -1,9 +1,9 @@
 import { compare } from 'bcryptjs'
 import { expect, describe, it, beforeEach } from 'vitest'
-import { RegisterUseCase } from './register'
+import { RegisterUseCase } from '.'
 
 import { UserAlreadyExistsError } from '../errors'
-import { makeRegisterUseCaseWithInMemoryRepository } from './factory'
+import { makeRegisterUseCaseWithInMemoryRepository } from '@/use-cases/factories'
 
 const fakeUser = {
     name: 'John Doe',
