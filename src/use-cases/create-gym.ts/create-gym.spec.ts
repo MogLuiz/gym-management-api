@@ -1,7 +1,7 @@
 import { expect, describe, it, beforeEach } from 'vitest'
 
 import { CreateGymUseCase } from '.'
-import { makeCreateGymUseCaseWithInMemoryRepository } from './factory'
+import { makeCreateGymUseCaseWithInMemoryRepository } from '@/use-cases/factories'
 
 const fakeGym = {
     title: 'Go academy',

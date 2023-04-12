@@ -1,6 +1,3 @@
-export * from './authenticate/factory'
-export * from './register/factory'
-
 export * from './authenticate'
 export * from './check-in'
 export * from './create-gym.ts'

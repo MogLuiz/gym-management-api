@@ -3,7 +3,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { registerBodySchema } from '@/schemas'
 
 
-import { makeRegisterUseCase } from '@/use-cases'
+import { makeRegisterUseCase } from '@/use-cases/factories'
 import { UserAlreadyExistsError } from '@/use-cases/errors'
 
 export async function registerController(
