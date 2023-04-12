@@ -1,4 +1,4 @@
-import { RegisterUseCase } from './register'
+import { RegisterUseCase } from '.'
 import { PrismaUsersRepository } from '@/repositories/prisma'
 import { InMemoryUsersRepository } from '@/repositories/in-memory'
 

@@ -1,4 +1,4 @@
-import { CreateGymUseCase } from './create-gym'
+import { CreateGymUseCase } from '.'
 import { InMemoryGymsRepository } from '@/repositories/in-memory'
 
 export function makeCreateGymUseCaseWithInMemoryRepository(): CreateGymUseCase {

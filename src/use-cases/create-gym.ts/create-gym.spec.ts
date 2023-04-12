@@ -1,6 +1,6 @@
 import { expect, describe, it, beforeEach } from 'vitest'
 
-import { CreateGymUseCase } from './create-gym'
+import { CreateGymUseCase } from '.'
 import { makeCreateGymUseCaseWithInMemoryRepository } from './factory'
 
 const fakeGym = {

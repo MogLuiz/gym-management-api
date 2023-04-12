@@ -1,2 +1,13 @@
 export * from './authenticate/factory'
 export * from './register/factory'
+
+export * from './authenticate'
+export * from './check-in'
+export * from './create-gym.ts'
+export * from './list-check-ins-history-by-user'
+export * from './list-nearby-gyms'
+export * from './register'
+export * from './search-gyms'
+export * from './show-user-metrics'
+export * from './show-user-profile'
+export * from './validate-check-in'
