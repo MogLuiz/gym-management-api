@@ -5,7 +5,6 @@ import { authenticateBodySchema } from '@/schemas'
 import { makeAuthenticateUseCase } from '@/use-cases/factories'
 import { InvalidCredentialsError } from '@/use-cases/errors'
 
-
 export async function authenticateController(
     request: FastifyRequest,
     response: FastifyReply
@@ -15,10 +14,21 @@ export async function authenticateController(
     try {
         const authenticateUseCase = makeAuthenticateUseCase()
 
-        await authenticateUseCase.execute({
+        const { user } = await authenticateUseCase.execute({
             email,
             password,
         })
+
+        const token = await response.jwtSign(
+            {},
+            {
+                sign: {
+                    sub: user.id,
+                },
+            }
+        )
+
+        return response.status(200).send({ token })
     } catch (err) {
         if (err instanceof InvalidCredentialsError) {
             response.status(400).send({ message: err.message })
@@ -26,6 +36,4 @@ export async function authenticateController(
 
         throw err
     }
-
-    return response.status(200).send()
 }
