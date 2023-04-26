@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { verifyJWT } from '@/http/middlewares/verify-jwt'
-import { create, history } from '.'
+import { create, history, metrics, validate } from '.'
 
 export async function checkInsRoutes(app: FastifyInstance) {
     // Add verifyJWT middleware for all requests
