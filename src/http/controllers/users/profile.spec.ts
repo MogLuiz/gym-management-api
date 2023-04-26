@@ -1,6 +1,7 @@
 import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user'
 
 const userMock = {
     name: 'John Doe',
@@ -18,14 +19,7 @@ describe('Profile (e2e)', () => {
     })
 
     it('should be able to get user profile', async () => {
-        await request(app.server).post('/users').send(userMock)
-
-        const authResponse = await request(app.server).post('/sessions').send({
-            email: userMock.email,
-            password: userMock.password,
-        })
-
-        const { token } = authResponse.body
+        const { token } = await createAndAuthenticateUser(app, userMock)
 
         const profileResponse = await request(app.server)
             .get('/me')
@@ -36,7 +30,7 @@ describe('Profile (e2e)', () => {
         expect(profileResponse.body.user).toEqual(
             expect.objectContaining({
                 email: userMock.email,
-            }),
+            })
         )
     })
 })
