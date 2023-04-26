@@ -5,9 +5,9 @@ import { makeListNearbyGymsUseCase } from '@/use-cases/factories'
 export async function nearby(request: FastifyRequest, reply: FastifyReply) {
     const { latitude, longitude } = nearbyGymsQuerySchema.parse(request.body)
 
-    const fetchNearbyGymsUseCase = makeListNearbyGymsUseCase()
+    const listNearbyGymsUseCase = makeListNearbyGymsUseCase()
 
-    const { gyms } = await fetchNearbyGymsUseCase.execute({
+    const { gyms } = await listNearbyGymsUseCase.execute({
         userLatitude: latitude,
         userLongitude: longitude,
     })
