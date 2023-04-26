@@ -3,7 +3,7 @@ import { searchGymsQuerySchema } from '@/schemas'
 import { makeSearchGymsUseCase } from '@/use-cases/factories'
 
 export async function search(request: FastifyRequest, reply: FastifyReply) {
-    const { query, page } = searchGymsQuerySchema.parse(request.body)
+    const { query, page } = searchGymsQuerySchema.parse(request.query)
 
     const searchGymsUseCase = makeSearchGymsUseCase()
 
