@@ -1,3 +1,3 @@
-export * from './envSchema'
-export * from './registerBodySchema'
-export * from './authenticateBodySchema'
+export * from './app'
+export * from './gyms'
+export * from './users'
