@@ -4,10 +4,10 @@ export const createGymBodySchema = z.object({
     title: z.string(),
     description: z.string().nullable(),
     phone: z.string().nullable(),
-    latitude: z.number().refine((value) => {
+    latitude: z.coerce.number().refine((value) => {
         return Math.abs(value) <= 90
     }),
-    longitude: z.number().refine((value) => {
+    longitude: z.coerce.number().refine((value) => {
         return Math.abs(value) <= 180
     }),
 })
